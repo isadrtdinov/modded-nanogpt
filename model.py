@@ -9,7 +9,10 @@ from kernels import get_kernel
 from triton_kernels import FusedLinearReLUSquareFunction, FusedSoftcappedCrossEntropy
 from hyperparams import Hyperparameters
 
-device = torch.device("cuda", int(os.environ["LOCAL_RANK"]))
+try:
+    device = torch.device("cuda", int(os.environ["LOCAL_RANK"]))
+except:
+    device = torch.device("cuda", 0)
 
 # -----------------------------------------------------------------------------
 # PyTorch nn.Module definitions for the model
